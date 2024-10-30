@@ -2,6 +2,7 @@
   "name": "rankrangers",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://anthonymartini.github.io/RankRangers",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

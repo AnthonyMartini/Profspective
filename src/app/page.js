@@ -1,101 +1,103 @@
-import Image from "next/image";
+// RankRangersApp.js
+'use client'
+import React, { useState } from 'react';
+import InstructorSearch from './InstructorSearch';
+import CoursesList from './CoursesList';
+import InstructorList from './instructorList';
+import TabbedMenu from './TabbedMenu';
+import CourseSearch from "./CourseSearch.js"
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+
+function RankRangersApp() {
+    const [selectedInstructor, setSelectedInstructor] = useState(null);
+    const [instructors, setInstructors] = useState([]);
+    const [courses, setCourses] = useState([]);
+    const [tab, setTab] = useState('instructorSearch');
+    const [error, setError] = useState(null);
+
+    const searchInstructors = async (name) => {
+        try {
+            const response = await fetch(`https://rankrangersrequests.azurewebsites.net/instructors?name=${encodeURIComponent(name)}`);
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            const data = await response.json();
+            setInstructors(data);
+            setError(null); // Clear previous errors
+        } catch (err) {
+            setError(err.message);
+            setInstructors([]); // Clear results on error
+        }
+    };
+    const fetchCourses = async (instructor) => {
+        setSelectedInstructor(instructor);
+        try {
+            const response = await fetch(`https://rankrangersrequests.azurewebsites.net/courses?name=${encodeURIComponent(instructor)}`);
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            const data = await response.json();
+            setCourses(data);
+            setError(null);
+        } catch (err) {
+            setError(err.message);
+            setCourses([]);
+        }
+    };
+    const fetchCourses2 = async (department,code) => {
+        console.log(code);
+        try {
+            const response = await fetch(`https://rankrangersrequests.azurewebsites.net/coursesearch?department=${encodeURIComponent(department)}&courseCode=${encodeURIComponent(code)}`);
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            const data = await response.json();
+            setCourses(data);
+            setError(null);
+        } catch (err) {
+            setError(err.message);
+            setCourses([]);
+        }
+    };
+
+    return (
+        <div className="w-screen min-h-screen flex flex-col justify-start bg-[#222831]  flex-nowrap">
+            {/*Header*/}
+            <div className = "w-full h-[200px] text-center justify-center gap-4 flex flex-col shadow-md">
+                 <h1 className="text-5xl font-bold w-screen text-[#76ABAE] ">The Rank Rangers</h1>
+                 <h1 className="text-1xl font-bold w-screen text-[#EEEEEE] ">No More Second Guessing Your Class Choices</h1>
+            </div>
+            {/*tabbed Menu*/}
+            <div className='w-full h-[60px] '>
+                <TabbedMenu activeTab = {tab} setActiveTab={setTab}/>
+                
+
+            </div>
+            {/*Search Bar*/}
+            <div className='w-full h-[70px]'>
+                {tab =='instructorSearch' ? 
+                <InstructorSearch searchInstructors={searchInstructors} error={error}/>
+                :<CourseSearch handleSearch={fetchCourses2} />
+                }
+                
+
+            </div>
+            
+            {/*Content Area*/}
+            <div className='w-full flex flex-row flex-nowrap justify-center'>
+            {tab =='instructorSearch' ?
+                <InstructorList instructors={instructors} onSelectInstructor={fetchCourses} selected={selectedInstructor}/> : <div></div>
+            }
+                <CoursesList instructor={selectedInstructor} courses = {courses} tab ={tab} />
+            </div>
+
+
+            
+            
+           
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    );
 }
+
+export default RankRangersApp;
