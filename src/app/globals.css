@@ -13,4 +13,38 @@
     --foreground: #ededed;
   }
 }
+.typing-effect {
+  display: inline-block; /* Ensures that the width is controlled by the text */
+  overflow: hidden; /* Hides overflow */
+  white-space: nowrap; /* Prevents line breaks */
+  animation: typing 1s steps(40,end) forwards; /* Typing and blinking cursor */
+}
+
+/* Keyframes for typing animation */
+@keyframes typing {
+  from {
+    width: 0; /* Start with no width */
+  }
+  to {
+    width: 100%; /* End with full width of the text */
+  }
+}
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tailwind class for the fade-in animation */
+.fade-in {
+  animation: fadeIn 0.5s ease forwards; /* Duration and easing */
+}
 
