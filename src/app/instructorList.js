@@ -24,7 +24,7 @@ function InstructorList({
     return (
       <div className="w-[50%] h-full items-center flex">
         <h1 className=" mt-16 text-xl font-normal w-full text-center text-[#76ABAE] ">
-          Enter a professor's last name to see past data.
+          Enter a professor&apos;s last name to see past data.
         </h1>
       </div>
     );
