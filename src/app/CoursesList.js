@@ -33,16 +33,27 @@ function CoursesList({ courses, loading }) {
         {courses.map((course, index) => (
           <div
             key={index}
-            className="fade-in flex flex-row rounded-md cursor-pointer hover:bg-gray-50 bg-gray-300 transition duration-200 font-bold text-center"
+            className="fade-in flex flex-row rounded-md cursor-pointer hover:bg-white bg-[#e1e1e1] transition duration-200 font-bold text-center"
           >
-            <div className="p-2 w-[110px] text-blue-800 border-r-2 border-black">
+            <div className="p-2 w-[110px]border-r-2 border-black">
               {course.Semester} {course.Year}
             </div>
-            <div className="p-2 flex-1 text-blue-800 border-r-2 border-black">
+            <div className="p-2 flex-1 border-r-2 border-black">
               {course.INSTRUCTOR}
             </div>
-            <div className="p-2 w-[100px] text-blue-800 border-r-2 border-black">
-              A%: {course.A}
+            <div className="p-2 w-[100px] border-r-2 border-black">
+              A%:{" "}
+              <div
+                className={`inline grade-${
+                  course.A > 66.67
+                    ? "good"
+                    : course.A > 33.33
+                    ? "medium"
+                    : "bad"
+                }`}
+              >
+                {course.A}
+              </div>
             </div>
           </div>
         ))}
