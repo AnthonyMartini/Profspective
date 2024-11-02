@@ -13,7 +13,7 @@ function InstructorList({
   if (loading) {
     return (
       <Image
-        className="w-[50px]"
+        className="w-[50px] h-[50px]"
         unoptimized={true}
         src={loadingGif}
         alt="Loading..."
@@ -38,10 +38,10 @@ function InstructorList({
         {instructors.map((instructor) => (
           <div
             key={instructor.instructor}
-            className={`fade-in p-2 rounded-md cursor-pointer ${
+            className={`fade-in p-2 rounded-md cursor-pointer text-[#141414] ${
               selected == instructor.instructor
-                ? "bg-blue-400"
-                : " hover:bg-gray-50 bg-gray-300"
+                ? "bg-[#85a6ff]"
+                : " hover:bg-white bg-[#e1e1e1]"
             } transition duration-200 font-bold text-center`}
             onClick={() => onSelectInstructor(instructor.instructor)}
           >

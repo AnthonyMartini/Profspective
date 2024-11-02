@@ -28,6 +28,7 @@ function RankRangersApp() {
   const [error, setError] = useState(null);
 
   const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
 
   const searchInstructors = async (name) => {
     setInstructorCourses([]);
@@ -53,10 +54,10 @@ function RankRangersApp() {
   };
   const fetchCourses = async (instructor) => {
     setSelectedInstructor(instructor);
-    setLoading(true);
+    setLoading2(true);
     try {
       const response = await fetch(
-        `https://rankrangersrequests.azurewebsites.net/courses?name=${encodeURIComponent(
+        `https://rankrangersrequests.azurewebsites.net/instructorCourses?name=${encodeURIComponent(
           instructor
         )}`
       );
@@ -70,7 +71,7 @@ function RankRangersApp() {
       setError(err.message);
       setInstructorCourses([]);
     } finally {
-      setLoading(false);
+      setLoading2(false);
     }
   };
   const fetchCourses2 = async (department, code) => {
@@ -98,7 +99,7 @@ function RankRangersApp() {
   return (
     <div className="w-screen min-h-screen flex flex-col justify-start bg-[#222831]  flex-nowrap">
       {/*Header*/}
-      <Link href="/Info">
+      <Link href="/info">
         <Image
           src={infoIcon}
           className="w-[30px] mt-2 ml-2 cursor-pointer"
@@ -155,6 +156,7 @@ function RankRangersApp() {
             <InstructorCourseList
               instructor={selectedInstructor}
               courses={instructorCourses}
+              loading={loading2}
             />
           </>
         ) : (
