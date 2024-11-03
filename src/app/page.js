@@ -1,6 +1,6 @@
 // RankRangersApp.js
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import InstructorSearch from "./InstructorSearch";
 import CoursesList from "./CoursesList";
 import InstructorCourseList from "./InstructorCourseList";
@@ -95,16 +95,6 @@ function RankRangersApp() {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/sw.js")
-        .then(() => console.log("Service Worker Registered"))
-        .catch((error) =>
-          console.error("Service Worker Registration Failed:", error)
-        );
-    }
-  }, []);
 
   return (
     <div className="w-screen min-h-screen flex flex-col justify-start bg-[#222831]  flex-nowrap">
