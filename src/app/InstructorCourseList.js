@@ -32,17 +32,17 @@ function InstructorCourseList({ courses, loading }) {
             key={index}
             className="fade-in flex flex-col text-[#141414] md:flex-row rounded-md cursor-pointer hover:bg-white bg-[#e1e1e1] transition duration-200 font-bold text-center "
           >
-            <div className="p-2 md:w-[120px]  border-b-2 md:border-r-2 border-black">
+            <div className="p-2 md:w-[120px]   md:border-b-0 md:border-r-2 border-[#949494]">
               {course.Semester} {course.Year}
             </div>
-            <div className="p-2 flex-1  border-b-2 md:border-r-2 border-black">
+            <div className="p-2 flex-1  md:border-b-0 md:border-r-2 border-[#949494]">
               {course.Department}
               {course.Code} |{" "}
               {course.TITLE.length > 30
                 ? course.TITLE.substring(0, 30) + "..."
                 : course.TITLE}
             </div>
-            <div className="p-2 md:w-[100px] border-b-2 md:border-r-2 border-black">
+            <div className="p-2 md:w-[100px">
               A%:{" "}
               <div
                 className={`inline grade-${

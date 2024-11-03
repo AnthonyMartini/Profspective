@@ -35,13 +35,13 @@ function CoursesList({ courses, loading }) {
             key={index}
             className="fade-in flex flex-row rounded-md cursor-pointer hover:bg-white bg-[#e1e1e1] transition duration-200 font-bold text-center"
           >
-            <div className="p-2 w-[110px]border-r-2 border-black">
+            <div className="p-2 w-[110px] border-r-2 border-[#949494]">
               {course.Semester} {course.Year}
             </div>
-            <div className="p-2 flex-1 border-r-2 border-black">
+            <div className="p-2 flex-1 border-r-2 border-[#949494]">
               {course.INSTRUCTOR}
             </div>
-            <div className="p-2 w-[100px] border-r-2 border-black">
+            <div className="p-2 w-[100px]">
               A%:{" "}
               <div
                 className={`inline grade-${
