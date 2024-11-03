@@ -1,6 +1,6 @@
 // RankRangersApp.js
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InstructorSearch from "./InstructorSearch";
 import CoursesList from "./CoursesList";
 import InstructorCourseList from "./InstructorCourseList";
