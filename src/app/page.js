@@ -102,7 +102,7 @@ function RankRangersApp() {
       <Link href="/info">
         <Image
           src={infoIcon}
-          className="w-[30px] mt-2 ml-2 cursor-pointer"
+          className="w-[30px] mt-2 ml-2 cursor-pointer "
           alt="Info"
         />
       </Link>

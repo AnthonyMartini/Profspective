@@ -24,7 +24,7 @@ function InstructorSearch({ searchInstructors, searchTerm, setSearchTerm }) {
         disabled={searchTerm == ""}
         className={`my-auto h-[40px] ${
           searchTerm == ""
-            ? "bg-gray-500 cursor-default disabled"
+            ? "bg-gray-500 cursor-default disabled hover:bg-gray-600"
             : "bg-blue-500 hover:bg-blue-600"
         } font-semibold text-[18px] px-4 text-white rounded-lg p-2  transition duration-300`}
         onClick={(e) => searchInstructors(searchTerm)}
